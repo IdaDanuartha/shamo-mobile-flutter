@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         '/sign-in': (context) => const SignInPage(),
         '/sign-up': (context) => const SignUpPage(),
         '/home': (context) => const MainPage(),
-        '/chat': (context) => const DetailChatPage(),
+        '/chat/detail': (context) => const DetailChatPage(),
       },
     );
   }
