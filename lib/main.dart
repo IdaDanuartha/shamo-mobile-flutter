@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_flutter/pages/sign_in_page.dart';
+import 'package:mobile_flutter/pages/splash_page.dart';
 import 'package:mobile_flutter/themes.dart';
 
 void main() {
@@ -13,20 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Halo semuanya', style: secondaryTextStyle.copyWith(fontSize: 30),),
-      ),
+      routes: {
+        '/': (context) => SplashPage(),
+        '/sign-in': (context) => SignInPage()
+      },
     );
   }
 }
