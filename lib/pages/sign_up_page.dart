@@ -1,11 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/themes.dart';
+import 'package:mobile_flutter/widgets/loading_button.dart';
+import 'package:provider/provider.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignUpPage extends StatefulWidget {
+  SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController nameController = TextEditingController(text: '');
+
+  TextEditingController usernameController = TextEditingController(text: '');
+
+  TextEditingController emailController = TextEditingController(text: '');
+
+  TextEditingController passwordController = TextEditingController(text: '');
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleSignUp() async {
+      setState(() {
+        isLoading = true;  
+      });
+
+      if(await authProvider.register(
+        name: nameController.text,
+        username: usernameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: secondaryColor,
+            content: Text(
+              'Register failed',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+        
+        setState(() {
+          isLoading = false;  
+        });
+      }
+    }
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(top: defaultMargin),
@@ -55,11 +104,12 @@ class SignUpPage extends StatelessWidget {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                        child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                          hintText: 'Your Full Name',
-                          hintStyle: subtitleTextStyle),
+                      child: TextFormField(
+                        controller: nameController,
+                        style: primaryTextStyle,
+                        decoration: InputDecoration.collapsed(
+                            hintText: 'Your Full Name',
+                            hintStyle: subtitleTextStyle),
                     ))
                   ],
                 ),
@@ -96,11 +146,12 @@ class SignUpPage extends StatelessWidget {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                        child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                          hintText: 'Your Username',
-                          hintStyle: subtitleTextStyle),
+                      child: TextFormField(
+                        controller: usernameController,
+                        style: primaryTextStyle,
+                        decoration: InputDecoration.collapsed(
+                            hintText: 'Your Username',
+                            hintStyle: subtitleTextStyle),
                     ))
                   ],
                 ),
@@ -137,11 +188,12 @@ class SignUpPage extends StatelessWidget {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                        child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
-                          hintText: 'Your Email Address',
-                          hintStyle: subtitleTextStyle),
+                      child: TextFormField(
+                        controller: emailController,
+                        style: primaryTextStyle,
+                        decoration: InputDecoration.collapsed(
+                            hintText: 'Your Email Address',
+                            hintStyle: subtitleTextStyle),
                     ))
                   ],
                 ),
@@ -178,12 +230,13 @@ class SignUpPage extends StatelessWidget {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                        child: TextFormField(
-                      style: primaryTextStyle,
-                      obscureText: true,
-                      decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
-                          hintStyle: subtitleTextStyle),
+                      child: TextFormField(
+                        controller: passwordController,
+                        style: primaryTextStyle,
+                        obscureText: true,
+                        decoration: InputDecoration.collapsed(
+                            hintText: 'Your Password',
+                            hintStyle: subtitleTextStyle),
                     ))
                   ],
                 ),
@@ -200,9 +253,7 @@ class SignUpPage extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(top: defaultMargin),
         child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/sign-in');  
-          },
+          onPressed: handleSignUp,
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               shape: RoundedRectangleBorder(
@@ -257,7 +308,7 @@ class SignUpPage extends StatelessWidget {
                 usernameInput(),
                 emailInput(),
                 passwordInput(),
-                signInButton(),
+                isLoading ? LoadingButton() : signInButton(),
                 Spacer(),
                 footer()
               ],

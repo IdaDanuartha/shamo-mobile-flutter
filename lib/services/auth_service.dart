@@ -23,15 +23,15 @@ class AuthService {
     });
 
     var response = await http.post(
-      url as Uri,
+      Uri.parse(url),
       headers: headers,
       body: body
     );
 
     if(response.statusCode == 200) {
-      var data = jsonDecode(response.body)["data"];
-      UserModel user = UserModel.fromJson(data['user']);
-      user.token = 'Bearer ' + data['access_token'];
+      var data = jsonDecode(response.body)["data"];      
+      data["user"]["token"] = 'Bearer ' + data['access_token'];
+      UserModel user = UserModel.fromJson(data["user"]);
 
       return user;
     } else {
