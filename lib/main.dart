@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter/pages/detail_chat_page.dart';
 import 'package:mobile_flutter/pages/edit_profile_page.dart';
 import 'package:mobile_flutter/pages/home/main_page.dart';
+import 'package:mobile_flutter/pages/product_page.dart';
 import 'package:mobile_flutter/pages/sign_in_page.dart';
 import 'package:mobile_flutter/pages/sign_up_page.dart';
 import 'package:mobile_flutter/pages/splash_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const MainPage(),
         '/chat/detail': (context) => const DetailChatPage(),
         '/profile/edit': (context) => const EditProfile(),
+        '/product': (context) => const ProductPage(),
       },
     );
   }
