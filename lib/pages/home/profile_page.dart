@@ -52,11 +52,74 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  Widget menuItem(String text) {
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: secondaryTextStyle.copyWith(
+              fontSize: 15
+            ),
+          ),
+          Icon(
+            Icons.chevron_right,
+            color: primaryTextColor,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget content() {
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin
+        ),
+        decoration: BoxDecoration(
+          color: bgColor3
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Account',
+              style: primaryTextStyle.copyWith(
+                fontSize: 18,
+                fontWeight: semiBold
+              ),
+            ),
+            menuItem("Edit Profile"),
+            menuItem("Your Orders"),
+            menuItem("Help"),
+            SizedBox(height: 30),
+            Text(
+              'General',
+              style: primaryTextStyle.copyWith(
+                fontSize: 18,
+                fontWeight: semiBold
+              ),
+            ),
+            menuItem("Privacy & Policy"),
+            menuItem("Terms of Service"),
+            menuItem("Rate App"),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        header()
+        header(),
+        content()
       ],
     );
   }
