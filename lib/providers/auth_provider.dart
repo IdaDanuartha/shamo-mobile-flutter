@@ -40,13 +40,21 @@ class AuthProvider with ChangeNotifier {
     required String password,
   }) async {
     try {
-      
       UserModel user = await AuthService().login(
         email: email,
         password: password,
       );
 
       _user = user;
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
       return true;
     } catch (e) {
       print(e);

@@ -11,8 +11,8 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  Widget header(UserModel user) {
+class _ProfilePageState extends State<ProfilePage> {      
+  Widget header(UserModel user, handleLogout) {
     return AppBar(
       backgroundColor: bgColor1,
       automaticallyImplyLeading: false,
@@ -50,13 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/sign-in',
-                    (route) => false
-                  );                  
-                },
+                onTap: handleLogout,
                 child: Image.asset(
                   'assets/button_exit.png',
                   width: 20,
@@ -141,9 +135,29 @@ class _ProfilePageState extends State<ProfilePage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
 
+    handleLogout() async {
+      if(await authProvider.logout()) {
+        Navigator.pushNamedAndRemoveUntil(
+          context, 
+          '/sign-in', 
+          (route) => false
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Logout failed',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+    }
+
     return Column(
       children: [
-        header(user),
+        header(user, handleLogout),
         content()
       ],
     );

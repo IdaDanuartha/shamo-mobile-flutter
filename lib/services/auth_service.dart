@@ -68,4 +68,18 @@ class AuthService {
       throw Exception('Login failed!');
     }
   }
+
+  Future<bool> logout() async {
+    var url = "$baseUrl/auth/logout";
+
+    var response = await http.post(
+      Uri.parse(url),
+    );
+
+    if(response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Logout failed!');
+    }
+  }
 }
