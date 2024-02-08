@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/models/user_model.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/themes.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -9,7 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Widget header() {
+  Widget header(UserModel user) {
     return AppBar(
       backgroundColor: bgColor1,
       automaticallyImplyLeading: false,
@@ -20,8 +23,8 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Row(
             children: [
               ClipOval(
-                child: Image.asset(
-                  'assets/image_profile.png',
+                child: Image.network(
+                  user.profilePhotoUrl,
                   width: 64,
                 ),
               ),
@@ -31,14 +34,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hello, Alex",
+                      "Hello, ${user.name}",
                       style: primaryTextStyle.copyWith(
                         fontSize: 24,
                         fontWeight: semiBold
                       ),
                     ),
                     Text(
-                      "@alexkeinn",
+                      "@${user.username}",
                       style: subtitleTextStyle.copyWith(
                         fontSize: 16,
                       ),
@@ -135,9 +138,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     return Column(
       children: [
-        header(),
+        header(user),
         content()
       ],
     );

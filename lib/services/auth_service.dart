@@ -38,4 +38,34 @@ class AuthService {
       throw Exception('Failed to create account!');
     }
   }
+
+  Future<UserModel> login({
+    required String email,
+    required String password,
+  }) async {
+    var url = "$baseUrl/auth/login";
+    var headers = {
+      "Content-Type": "application/json"
+    };
+    var body = jsonEncode({
+      'email': email,
+      'password': password,
+    });
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body
+    );
+
+    if(response.statusCode == 200) {
+      var data = jsonDecode(response.body)["data"];      
+      data["user"]["token"] = 'Bearer ' + data['access_token'];
+      UserModel user = UserModel.fromJson(data["user"]);
+
+      return user;
+    } else {
+      throw Exception('Login failed!');
+    }
+  }
 }

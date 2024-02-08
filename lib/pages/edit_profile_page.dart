@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/models/user_model.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/themes.dart';
+import 'package:provider/provider.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -9,6 +12,10 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  TextEditingController nameController = TextEditingController(text: '');  
+  TextEditingController usernameController = TextEditingController(text: '');  
+  TextEditingController emailController = TextEditingController(text: '');  
+
   AppBar header() {
     return AppBar(
       leading: IconButton(
@@ -35,7 +42,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget nameInput() {
+  Widget nameInput(String name) {
     return Container(
       margin: EdgeInsets.only(
         top: 30
@@ -50,9 +57,10 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ),
           TextFormField(
+            controller: nameController,
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: 'Alex keinnzal',
+              hintText: 'Enter your name',
               hintStyle: secondaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -66,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-Widget usernameInput() {
+  Widget usernameInput(String username) {
     return Container(
       margin: EdgeInsets.only(
         top: 30
@@ -81,9 +89,10 @@ Widget usernameInput() {
             ),
           ),
           TextFormField(
+            controller: usernameController,
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: '@alexkeinn',
+              hintText: 'Enter your username',
               hintStyle: secondaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -97,7 +106,7 @@ Widget usernameInput() {
     );
   }
 
-  Widget emailInput() {
+  Widget emailInput(String email) {
     return Container(
       margin: EdgeInsets.only(
         top: 30
@@ -112,9 +121,10 @@ Widget usernameInput() {
             ),
           ),
           TextFormField(
+            controller: emailController,
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: 'alex.keinn@gmail.com',
+              hintText: 'Enter your email',
               hintStyle: secondaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -127,39 +137,8 @@ Widget usernameInput() {
       ),
     );
   }
-
-  Widget phoneInput() {
-    return Container(
-      margin: EdgeInsets.only(
-        top: 30
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Phone Number',
-            style: secondaryTextStyle.copyWith(
-              fontSize: 13
-            ),
-          ),
-          TextFormField(
-            style: primaryTextStyle,
-            decoration: InputDecoration(
-              hintText: '081234567890',
-              hintStyle: secondaryTextStyle,
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: subtitleColor
-                )
-              )
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget content() {
+  
+  Widget content(UserModel user) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: defaultMargin
@@ -177,16 +156,16 @@ Widget usernameInput() {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/image_profile.png'
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  user.profilePhotoUrl
                 )
               )
             ),
           ),
-          nameInput(),
-          usernameInput(),
-          emailInput(),
-          phoneInput(),
+          nameInput(user.name),
+          usernameInput(user.username),
+          emailInput(user.email),          
         ],
       ),
     );
@@ -194,10 +173,17 @@ Widget usernameInput() {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
+    nameController.text = user.name;
+    usernameController.text = user.username;
+    emailController.text = user.email;
+
     return Scaffold(
       backgroundColor: bgColor3,
       appBar: header(),
-      body: content(),
+      body: content(user),
       resizeToAvoidBottomInset: false,
     );
   }
