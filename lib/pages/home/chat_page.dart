@@ -7,7 +7,7 @@ class ChatPage extends StatelessWidget {
 
   Widget header() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 15),
       child: AppBar(
         backgroundColor: bgColor1,
         centerTitle: true,

@@ -10,7 +10,7 @@ class DetailChatPage extends StatelessWidget {
 
     PreferredSize appBar() {
       return PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: AppBar(
           backgroundColor: bgColor1,
           centerTitle: true,
@@ -20,7 +20,7 @@ class DetailChatPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset("assets/image_shop_logo_online.png", width: 40,),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -48,10 +48,10 @@ class DetailChatPage extends StatelessWidget {
       return Container(
         width: 225,
         height: 74,
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 20
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: bgColor5,
           borderRadius: BorderRadius.circular(12),
@@ -69,7 +69,7 @@ class DetailChatPage extends StatelessWidget {
                 width: 54,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class DetailChatPage extends StatelessWidget {
                     style: primaryTextStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(
                     '\$57.15',
                     style: priceTextStyle.copyWith(
@@ -101,7 +101,7 @@ class DetailChatPage extends StatelessWidget {
 
     Widget chatInput() {
       return Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +112,7 @@ class DetailChatPage extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 45,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                     ),
                     decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class DetailChatPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Image.asset(
                   'assets/button_send.png',
                   width: 45,
@@ -148,12 +148,12 @@ class DetailChatPage extends StatelessWidget {
           horizontal: defaultMargin
         ),
         children: [
-          ChatBubble(
+          const ChatBubble(
             isSender: true,
             text: 'Hi, This item is still available?',
             hasProduct: true,
           ),
-          ChatBubble(
+          const ChatBubble(
             isSender: false,
             text: 'Good night, This item is only available in size 42 and 433',
           ),
