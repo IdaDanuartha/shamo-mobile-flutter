@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/pages/cart_page.dart';
+import 'package:mobile_flutter/pages/checkout_page.dart';
+import 'package:mobile_flutter/pages/checkout_success_page.dart';
 import 'package:mobile_flutter/pages/detail_chat_page.dart';
 import 'package:mobile_flutter/pages/edit_profile_page.dart';
 import 'package:mobile_flutter/pages/home/main_page.dart';
@@ -26,6 +29,9 @@ class MyApp extends StatelessWidget {
         '/chat/detail': (context) => const DetailChatPage(),
         '/profile/edit': (context) => const EditProfile(),
         '/product': (context) => const ProductPage(),
+        '/cart': (context) => CartPage(),
+        '/checkout': (context) => CheckoutPage(),
+        '/checkout-success': (context) => CheckoutSuccessPage(),
       },
     );
   }
