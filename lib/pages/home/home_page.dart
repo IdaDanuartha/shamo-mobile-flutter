@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_flutter/models/user_model.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
+import 'package:mobile_flutter/providers/product_provider.dart';
 import 'package:mobile_flutter/themes.dart';
 import 'package:mobile_flutter/widgets/product_card.dart';
 import 'package:mobile_flutter/widgets/product_tile.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     Widget header() {
       return Container(
@@ -212,10 +214,9 @@ class HomePage extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                ],
+                children: productProvider.products.map(
+                  (product) => ProductCard(product: product)
+                ).toList()
               ),
             ),
           )

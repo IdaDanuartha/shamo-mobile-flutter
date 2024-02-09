@@ -10,10 +10,13 @@ import 'package:mobile_flutter/pages/sign_in_page.dart';
 import 'package:mobile_flutter/pages/sign_up_page.dart';
 import 'package:mobile_flutter/pages/splash_page.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
+import 'package:mobile_flutter/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
+
+  // await dotenv.load(fileName: ".env");
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider())
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

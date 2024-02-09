@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/models/product_model.dart';
 import 'package:mobile_flutter/themes.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  const ProductCard({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
