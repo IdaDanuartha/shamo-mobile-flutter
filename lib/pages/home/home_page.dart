@@ -248,11 +248,11 @@ class HomePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
-                ProductTile(),
-              ],
+                ProductTile(product: productProvider.products[0]),
+                ProductTile(product: productProvider.products[1]),
+                ProductTile(product: productProvider.products[2]),
+                ProductTile(product: productProvider.products[3]),
+              ]
             )
           )
         ],

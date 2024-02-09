@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/models/product_model.dart';
 import 'package:mobile_flutter/themes.dart';
 
 class ProductTile extends StatelessWidget {
-  const ProductTile({super.key});
+  const ProductTile({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,8 @@ class ProductTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                'assets/image_shoes.png',
+              child: Image.network(
+                product.galleries[0].url,
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,
@@ -35,7 +38,7 @@ class ProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Football',
+                    product.category.name,
                     style: secondaryTextStyle.copyWith(
                       fontSize: 12
                     ),
@@ -44,7 +47,7 @@ class ProductTile extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    'Predator 20.3 Firm Ground',
+                    product.name,
                     style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold
@@ -54,7 +57,7 @@ class ProductTile extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\$68.47',
+                    "\$${product.price}",
                     style: priceTextStyle.copyWith(
                       fontWeight: medium
                     ),
