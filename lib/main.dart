@@ -11,6 +11,7 @@ import 'package:mobile_flutter/pages/sign_up_page.dart';
 import 'package:mobile_flutter/pages/splash_page.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/providers/product_provider.dart';
+import 'package:mobile_flutter/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

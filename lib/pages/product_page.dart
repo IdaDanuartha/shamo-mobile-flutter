@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_flutter/models/product_model.dart';
 import 'package:mobile_flutter/pages/detail_chat_page.dart';
+import 'package:mobile_flutter/providers/wishlist_provider.dart';
 import 'package:mobile_flutter/themes.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key, required this.product});
@@ -26,10 +28,11 @@ class _ProductPageState extends State<ProductPage> {
   ];
 
   int currentIndex = 0;
-  bool isWishlist = true;
 
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     Future<void> showSuccessDialog() async {
       return showDialog(
         context: context,
@@ -248,13 +251,14 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isWishlist = !isWishlist;
-                      });
-                      if (isWishlist) {
+                      
+                      wishlistProvider.setProduct(widget.product);
+
+                      if (wishlistProvider.isWishlist(widget.product)) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: secondaryColor,
+                            duration: Duration(milliseconds: 500),
                             content: Text(
                               'Has been added to the Wishlist',
                               textAlign: TextAlign.center,
@@ -265,8 +269,9 @@ class _ProductPageState extends State<ProductPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: alertColor,
+                            duration: Duration(milliseconds: 500),
                             content: Text(
-                              'Has been removed from the Wishlist',
+                              'Product has been removed from the Wishlist',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -274,7 +279,7 @@ class _ProductPageState extends State<ProductPage> {
                       }
                     },
                     child: Image.asset(
-                      isWishlist
+                      wishlistProvider.isWishlist(widget.product)
                           ? 'assets/button_wishlist_blue.png'
                           : 'assets/button_wishlist.png',
                       width: 46,

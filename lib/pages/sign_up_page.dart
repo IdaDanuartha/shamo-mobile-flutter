@@ -42,6 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
+            duration: Duration(milliseconds: 500),
             content: Text(
               'Register failed',
               textAlign: TextAlign.center,

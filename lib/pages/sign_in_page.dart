@@ -35,6 +35,7 @@ class _SignInPageState extends State<SignInPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
+            duration: Duration(milliseconds: 500),
             content: Text(
               'Login failed',
               textAlign: TextAlign.center,
