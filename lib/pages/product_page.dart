@@ -1,22 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/models/product_model.dart';
 import 'package:mobile_flutter/pages/detail_chat_page.dart';
 import 'package:mobile_flutter/themes.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key});
+  const ProductPage({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
 
 class _ProductPageState extends State<ProductPage> {
-  List images = [
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-  ];
-
   List familiarShoes = [
     'assets/image_shoes.png',
     'assets/image_shoes2.png',
@@ -173,10 +170,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: images
+            items: widget.product.galleries
                 .map(
-                  (image) => Image.asset(
-                    image,
+                  (image) => Image.network(
+                    image.url,
                     width: MediaQuery.of(context).size.width,
                     height: 310,
                     fit: BoxFit.cover,
@@ -197,7 +194,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images.map((e) {
+            children: widget.product.galleries.map((e) {
               index++;
               return indicator(index);
             }).toList(),
@@ -234,14 +231,14 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "TERREX URBAN LOW",
+                          widget.product.name,
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
                         ),
                         Text(
-                          "Hiking",
+                          widget.product.category.name,
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                           ),
@@ -308,7 +305,7 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$143.98',
+                    '\$${widget.product.price}',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -339,7 +336,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12,
                   ),
                   Text(
-                    "Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute",
+                    widget.product.description,
                     style: subtitleTextStyle.copyWith(
                       fontWeight: light,
                     ),
@@ -363,7 +360,7 @@ class _ProductPageState extends State<ProductPage> {
                       horizontal: defaultMargin,
                     ),
                     child: Text(
-                      'Fimiliar Shoes',
+                      'Familiar Shoes',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
